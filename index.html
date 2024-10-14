@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课程搜索</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            text-align: center;
+        }
+        input {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .suggestions {
+            width: 320px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            border-top: none;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+        }
+        .suggestions div {
+            padding: 10px;
+            cursor: pointer;
+            background-color: white;
+        }
+        .suggestions div:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+    <script>
+        let courseData = {};
+
+        async function loadCourses() {
+            const response = await fetch('courses.txt');
+            const text = await response.text();
+            text.split('\n').forEach(line => {
+                const [code, name] = line.split(',').map(item => item.trim());
+                if (code && name) {
+                    courseData[name] = code;
+                }
+            });
+        }
+    
+        function showSuggestions(value) {
+            const suggestionsBox = document.getElementById('suggestions');
+            suggestionsBox.innerHTML = ''; 
+    
+            if (value.trim()) {
+                const matches = Object.keys(courseData).filter(name =>
+                    name.includes(value)
+                );
+                matches.forEach(name => {
+                    const suggestion = document.createElement('div');
+                    suggestion.textContent = name;
+                    suggestion.onclick = () => selectCourse(name);
+                    suggestionsBox.appendChild(suggestion);
+                });
+    
+                suggestionsBox.style.display = matches.length ? 'block' : 'none';
+            } else {
+                suggestionsBox.style.display = 'none';
+            }
+        }
+    
+        function selectCourse(courseName) {
+            const code = courseData[courseName];
+            if (code) {
+                window.location.href = `https://jwba.ucas.ac.cn/sc/course/courseplan/${code}#网页`;
+            }
+        }
+    
+        window.onload = loadCourses;
+    </script>
+</head>
+<body>
+    <h1>课程名搜索</h1>
+​    <input type="text" id="courseInput" placeholder="请输入课程名" 
+​           oninput="showSuggestions(this.value)">
+    <div id="suggestions" class="suggestions"></div>
+</body>
+</html>
