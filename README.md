@@ -2,6 +2,8 @@
 
 [Visit the Site](https://sjj1017.github.io/UCASyllabus/)
 
+Total number of courses included: 7000+
+
 ## Project Objective
 
 The aim of this project is to provide students at the University of Chinese Academy of Sciences (UCAS) with a convenient tool for quickly accessing course outlines. Currently, course registration information only includes course names and class times. While the UCAS course outline website is accessible, it lacks an effective navigation page.
