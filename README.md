@@ -2,7 +2,7 @@
 
 [Visit the Site](https://sjj1017.github.io/UCASyllabus/)
 
-Total number of courses included: 7000+
+Total number of courses included: 9500+
 
 ## Project Objective
 
